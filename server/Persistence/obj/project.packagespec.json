@@ -17,7 +17,11 @@
     },
     "frameworks": {
       "netcoreapp5.0": {
-        "projectReferences": {}
+        "projectReferences": {
+          "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Domain\\Domain.csproj": {
+            "projectPath": "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Domain\\Domain.csproj"
+          }
+        }
       }
     },
     "warningProperties": {
@@ -28,6 +32,16 @@
   },
   "frameworks": {
     "netcoreapp5.0": {
+      "dependencies": {
+        "Microsoft.EntityFrameworkCore": {
+          "target": "Package",
+          "version": "[5.0.2, )"
+        },
+        "Microsoft.EntityFrameworkCore.Sqlite": {
+          "target": "Package",
+          "version": "[5.0.2, )"
+        }
+      },
       "imports": [
         "net461",
         "net462",
