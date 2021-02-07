@@ -8,23 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ramir\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/juanjo/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Application\\Application.csproj",
+      "projectUniqueName": "/home/juanjo/Documents/programming/dotnet/Reactivity/server/Application/Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\ramir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Application\\obj\\",
+      "projectPath": "/home/juanjo/Documents/programming/dotnet/Reactivity/server/Application/Application.csproj",
+      "packagesPath": "/home/juanjo/.nuget/packages/",
+      "outputPath": "/home/juanjo/Documents/programming/dotnet/Reactivity/server/Application/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ramir\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/juanjo/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -62,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CH6qLIEtiHWdp3DZYWLq8L5RBv51wabD2BQJXoXtjUr3RcBJjtE8LTQoYVc3cLOgfGX0MYM2MDq34qR0enWjxw==",
+  "dgSpecHash": "+giteqA1xNlhRKNCeICqJ+79DDBCQy+hrYbU28H3Tz4GkTJ1Wx7Q9W1jNqB1OwNge4RKvh3Xzv/qpgfT7/zCBQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ramir\\Documents\\tests\\asp-core\\Reactivities\\server\\Domain\\Domain.csproj",
+  "projectFilePath": "/home/juanjo/Documents/programming/dotnet/Reactivity/server/Domain/Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

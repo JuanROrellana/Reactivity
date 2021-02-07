@@ -10,5 +10,10 @@ namespace Persistence
         }
 
         private DbSet<Value> Values { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }
