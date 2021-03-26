@@ -25,13 +25,30 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Activity>> Get([FromRoute] Guid id)
         {
-            return await Mediator.Send(new Details.Query{Id = id});
+            return await Mediator.Send(new Details.Query { Id = id });
         }
 
         [HttpPost]
         public async Task<ActionResult> Get([FromBody] Activity activity)
         {
-            return Ok(await Mediator.Send(new CreateActivity.Command{Activity = activity}));
+            return Ok(await Mediator.Send(new CreateActivity.Command { Activity = activity }));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Edit([FromRoute] Guid id, [FromBody] Activity activity)
+        {
+            activity.Id = id;
+            return Ok(
+                await Mediator.Send(new EditActivity.Command { Activity = activity })
+            );
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        {
+            return Ok(
+                await Mediator.Send(new DeleteActivity.Command { Id = id })
+            );
         }
     }
 }
