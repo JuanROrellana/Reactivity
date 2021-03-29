@@ -28,10 +28,11 @@ interface Props{
     closeForm: () => void;
     createOrEdit: (activity: Activity) => void;
     deleteActivity: (id: string) => void;
+    submitting: boolean;
 }
 
 function ActivityDashboard({activities, selectedActivity, selectActivity, cancelActivity, editMode, openForm, closeForm, createOrEdit,
-                               deleteActivity}: Props) {
+                               deleteActivity, submitting}: Props) {
     const classes = useStyles();
     return(
         <div className={classes.root}>
@@ -49,7 +50,12 @@ function ActivityDashboard({activities, selectedActivity, selectActivity, cancel
                         openForm={openForm}
                     />}
                     {editMode &&
-                    <ActivityForm closeForm={closeForm} selectedActivity={selectedActivity} createOrEdit={createOrEdit}/>}
+                    <ActivityForm
+                        closeForm={closeForm}
+                        selectedActivity={selectedActivity}
+                        createOrEdit={createOrEdit}
+                        submitting={submitting}
+                    />}
                 </Grid>
             </Grid>
         </div>

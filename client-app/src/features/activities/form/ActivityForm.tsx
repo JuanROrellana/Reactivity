@@ -7,9 +7,10 @@ interface Props{
     closeForm: () => void;
     selectedActivity: Activity | undefined;
     createOrEdit: (activity: Activity) => void;
+    submitting: boolean;
 }
 
-function ActivityForm({closeForm, selectedActivity, createOrEdit}: Props) {
+function ActivityForm({closeForm, selectedActivity, createOrEdit, submitting}: Props) {
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -48,7 +49,7 @@ function ActivityForm({closeForm, selectedActivity, createOrEdit}: Props) {
                     <TextField id="category" label="Category" value={activity.category} onChange={handleChange}/>
                 </FormControl>
                 <FormControl>
-                    <TextField id="date" label="Date" value={activity.date} onChange={handleChange}/>
+                    <TextField id="date" label="Date" value={activity.date} onChange={handleChange} type='date'/>
                 </FormControl>
                 <FormControl>
                     <TextField id="city" label="City" value={activity.city} onChange={handleChange}/>

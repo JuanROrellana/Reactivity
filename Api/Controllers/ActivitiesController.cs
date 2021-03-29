@@ -13,7 +13,6 @@ using Domain;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
