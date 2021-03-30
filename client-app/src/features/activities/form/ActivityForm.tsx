@@ -1,16 +1,12 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {FormControl, TextField} from "@material-ui/core";
 import { Button } from '@material-ui/core';
-import {Activity} from "../../../app/models/activity";
+import {useStore} from "../../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
-interface Props{
-    closeForm: () => void;
-    selectedActivity: Activity | undefined;
-    createOrEdit: (activity: Activity) => void;
-    submitting: boolean;
-}
-
-function ActivityForm({closeForm, selectedActivity, createOrEdit, submitting}: Props) {
+function ActivityForm() {
+    const {activityStore} = useStore();
+    const {selectedActivity, closeForm, createActivity, updateActivity} = activityStore;
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -26,7 +22,7 @@ function ActivityForm({closeForm, selectedActivity, createOrEdit, submitting}: P
 
     function handleSubmit(event: FormEvent){
         event.preventDefault();
-        createOrEdit(activity);
+        activity.id ? updateActivity(activity) : createActivity(activity);
     }
 
     function handleChange(event: ChangeEvent<HTMLInputElement>){
@@ -70,4 +66,4 @@ function ActivityForm({closeForm, selectedActivity, createOrEdit, submitting}: P
     );
 }
 
-export default ActivityForm;
+export default observer(ActivityForm);

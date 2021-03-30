@@ -1,7 +1,8 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Typography} from "@material-ui/core";
-import {Activity} from "../../../app/models/activity";
 import {makeStyles} from "@material-ui/core/styles";
+import {useStore} from "../../../app/stores/store";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 const useStyles = makeStyles({
     root: {
@@ -20,14 +21,13 @@ const useStyles = makeStyles({
     },
 });
 
-interface Props{
-    activity: Activity;
-    cancelActivity: () => void;
-    openForm: (id: string) => void;
-}
-
-function ActivityDetails({activity, cancelActivity, openForm}: Props){
+function ActivityDetails(){
     const classes = useStyles();
+    const {activityStore} = useStore();
+    const {selectedActivity: activity, openForm, cancelSelectedActivity} = activityStore;
+
+    if(!activity) return <LoadingComponent inverted={false} content={''}/>;
+
     return(
         <>
             <Card className={classes.root}>
@@ -49,7 +49,7 @@ function ActivityDetails({activity, cancelActivity, openForm}: Props){
                 </CardContent>
                 <CardActions>
                     <Button size="medium" onClick={() => openForm(activity.id)}>Edit</Button>
-                    <Button size="medium" onClick={cancelActivity}>Cancel</Button>
+                    <Button size="medium" onClick={cancelSelectedActivity}>Cancel</Button>
                 </CardActions>
             </Card>
         </>

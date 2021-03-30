@@ -1,7 +1,8 @@
-import React from "react";
-import {Activity} from "../../../app/models/activity";
+import React, {SyntheticEvent} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, Card, CardActions, CardContent, Typography} from "@material-ui/core";
+import {useStore} from "../../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 
 const useStyles = makeStyles({
@@ -21,17 +22,18 @@ const useStyles = makeStyles({
     },
 });
 
-interface Props{
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-}
-
-function ActivityList({activities, selectActivity, deleteActivity}: Props){
+function ActivityList(){
     const classes = useStyles();
+    const {activityStore} = useStore();
+    const {deleteActivity, activitiesByDate} = activityStore;
+
+    function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
+        deleteActivity(id);
+    }
+
     return (
         <>
-            {activities.map(activity => (
+            {activitiesByDate.map(activity => (
                 <Card className={classes.root} key={activity.id}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -50,8 +52,11 @@ function ActivityList({activities, selectActivity, deleteActivity}: Props){
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="medium" onClick={() => selectActivity(activity.id)}>View</Button>
-                        <Button size="medium" onClick={() => deleteActivity(activity.id)}>Delete</Button>
+                        <Button size="medium" onClick={() => activityStore.selectActivity(activity.id)}>View</Button>
+                        <Button size="medium"
+                                name={activity.id}
+                                onClick={(e) => handleActivityDelete(e, activity.id)}
+                        >Delete</Button>
                     </CardActions>
                 </Card>
             ))}
@@ -59,4 +64,4 @@ function ActivityList({activities, selectActivity, deleteActivity}: Props){
     );
 }
 
-export default ActivityList;
+export default observer(ActivityList);

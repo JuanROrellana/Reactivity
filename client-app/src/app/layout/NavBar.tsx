@@ -1,6 +1,7 @@
 import React from "react";
 import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {useStore} from "../stores/store";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,23 +15,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-interface Props{
-    openForm: () => void;
-}
-
-function NavBar({openForm}: Props){
+function NavBar(){
+    const {activityStore} = useStore();
     const classes = useStyles();
     return(
         <AppBar position="static">
             <Toolbar>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 </IconButton>
-                <Button size="medium" onClick={openForm}>
+                <Button size="medium" onClick={() => activityStore.openForm()}>
                     <Typography variant="h6" className={classes.title}>
                         Create Activity
                     </Typography>
                 </Button>
-
                 <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
