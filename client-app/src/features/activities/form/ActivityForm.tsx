@@ -1,14 +1,18 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {FormControl, TextField} from "@material-ui/core";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import {FormControl, Link, TextField} from "@material-ui/core";
 import { Button } from '@material-ui/core';
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
+import {useParams, useHistory} from "react-router-dom";
+import { v4 as uuid } from 'uuid';
 
 function ActivityForm() {
     const {activityStore} = useStore();
-    const {selectedActivity, closeForm, createActivity, updateActivity} = activityStore;
-
-    const initialState = selectedActivity ?? {
+    const history = useHistory();
+    const {createActivity, updateActivity,
+         loadActivity, loadingInitial} = activityStore;
+    const {id} = useParams<{id: string}>();
+    const [activity, setActivity] = useState({
         id: '',
         title: '',
         description: '',
@@ -16,25 +20,35 @@ function ActivityForm() {
         city: '',
         venue: '',
         date: ''
-    }
+    });
 
-    const [activity, setActivity] = useState(initialState);
+    useEffect(() => {
+        if (id) loadActivity(id).then(activity => setActivity(activity!))
+    }, [id, loadActivity]);
 
-    function handleSubmit(event: FormEvent){
+    function handleSubmit(event: FormEvent) {
         event.preventDefault();
-        activity.id ? updateActivity(activity) : createActivity(activity);
+        if (activity.id.length === 0) {
+            let newActivity = {
+                ...activity,
+                id: uuid()
+            };
+            createActivity(newActivity).then(() => history.push(`/activities/${newActivity.id}`))
+        } else {
+            updateActivity(activity).then(() => history.push(`/activities/${activity.id}`))
+        }
     }
 
     function handleChange(event: ChangeEvent<HTMLInputElement>){
         const {id, value} = event.target;
-        console.log('value',value);
-        console.log('name',id);
         setActivity({...activity, [id]: value});
     }
 
+    // if(loadingInitial) return <LoadingComponent inverted={true} content={'None'}/>
+
     return(
         <div>
-            <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <form noValidate autoComplete="off">
                 <FormControl>
                     <TextField id="title" label="Title" value={activity.title} onChange={handleChange}/>
                 </FormControl>
@@ -57,9 +71,11 @@ function ActivityForm() {
                     <Button type={"submit"}  variant="contained" color="primary" onClick={handleSubmit}>
                         Submit
                     </Button>
-                    <Button variant="contained" onClick={closeForm}>
-                        Cancel
-                    </Button>
+                    <Link href='/activities'>
+                        <Button variant="contained">
+                            Cancel
+                        </Button>
+                    </Link>
                 </FormControl>
             </form>
         </div>

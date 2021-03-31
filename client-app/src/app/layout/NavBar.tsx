@@ -1,34 +1,39 @@
 import React from "react";
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {useStore} from "../stores/store";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
+import {AppBar, Button, Link, Menu, MenuItem, Toolbar} from "@material-ui/core";
 
 function NavBar(){
-    const {activityStore} = useStore();
-    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return(
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                </IconButton>
-                <Button size="medium" onClick={() => activityStore.openForm()}>
-                    <Typography variant="h6" className={classes.title}>
-                        Create Activity
-                    </Typography>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} color="inherit">
+                    Menu
                 </Button>
-                <Button color="inherit">Login</Button>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <Link href="/" color="inherit" underline='none'>
+                        <MenuItem>Home</MenuItem>
+                    </Link>
+                    <Link href="/activities" color="inherit" underline='none'>
+                        <MenuItem>Activities</MenuItem>
+                    </Link>
+                    <Link href="/createActivities" color="inherit" underline='none'>
+                        <MenuItem>Create Activity</MenuItem>
+                    </Link>
+                </Menu>
             </Toolbar>
         </AppBar>
     );

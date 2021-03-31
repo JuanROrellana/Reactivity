@@ -1,8 +1,10 @@
-import React from "react";
-import {Button, Card, CardActions, CardContent, Typography} from "@material-ui/core";
+import React, {useEffect} from "react";
+import {useParams} from 'react-router-dom';
+import {Button, Card, CardActions, CardContent, Link, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles({
     root: {
@@ -24,9 +26,15 @@ const useStyles = makeStyles({
 function ActivityDetails(){
     const classes = useStyles();
     const {activityStore} = useStore();
-    const {selectedActivity: activity, openForm, cancelSelectedActivity} = activityStore;
+    const {selectedActivity: activity, loadActivity} = activityStore;
+    const {id} = useParams<{id: string}>();
 
-    if(!activity) return <LoadingComponent inverted={false} content={''}/>;
+    useEffect(() => {
+        if(id) loadActivity(id);
+        },
+        [id, loadActivity]);
+
+    if(!activity || !activity) return <LoadingComponent inverted={false} content={''}/>;
 
     return(
         <>
@@ -48,12 +56,16 @@ function ActivityDetails(){
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="medium" onClick={() => openForm(activity.id)}>Edit</Button>
-                    <Button size="medium" onClick={cancelSelectedActivity}>Cancel</Button>
+                    <Link href={`/manage/${activity.id}`} color="inherit" underline='none' >
+                        <Button size="medium">Edit</Button>
+                    </Link>
+                    <Link href={`/activities`} color="inherit" underline='none' >
+                        <Button size="medium">Cancel</Button>
+                    </Link>
                 </CardActions>
             </Card>
         </>
     )
 }
 
-export default ActivityDetails;
+export default observer(ActivityDetails);

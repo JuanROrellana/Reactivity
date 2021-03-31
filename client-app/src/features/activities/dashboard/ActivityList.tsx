@@ -1,9 +1,8 @@
 import React, {SyntheticEvent} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, Card, CardActions, CardContent, Typography} from "@material-ui/core";
+import {Button, Card, CardActions, CardContent, Link, Typography} from "@material-ui/core";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
-
 
 const useStyles = makeStyles({
     root: {
@@ -52,7 +51,9 @@ function ActivityList(){
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="medium" onClick={() => activityStore.selectActivity(activity.id)}>View</Button>
+                        <Link href={`/activities/${activity.id}`} color="inherit" underline='none' >
+                            <Button size="medium">View</Button>
+                        </Link>
                         <Button size="medium"
                                 name={activity.id}
                                 onClick={(e) => handleActivityDelete(e, activity.id)}
