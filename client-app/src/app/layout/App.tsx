@@ -12,10 +12,10 @@ import ActivityDetails from "../../features/activities/details/ActivityDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: 1024,
+    // width: '100%',
+    // maxWidth: 1024,
     padding: theme.spacing(3),
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
   },
 }));
 
@@ -29,7 +29,7 @@ function App() {
                  render={() => (
                      <>
                          <NavBar/>
-                         <Container maxWidth="sm">
+                         <Container fixed>
                              <div className={classes.root}>
                                  <Route exact path='/activities' component={ActivityDashboard}/>
                                  <Route path='/activities/:id' component={ActivityDetails}/>
