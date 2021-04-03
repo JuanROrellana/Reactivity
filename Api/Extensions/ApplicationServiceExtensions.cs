@@ -1,5 +1,5 @@
 using Application.Activities;
-using Application.Activities.Core;
+using Application.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +30,7 @@ namespace API.Extensions
                     policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
                 });
             });
-            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(ListActivity.Handler).Assembly);
 
             services.AddAutoMapper(typeof(MappingProfiles).Assembly); 
 
