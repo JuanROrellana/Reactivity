@@ -6,6 +6,7 @@ import {Grid} from "@material-ui/core";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ActivityFilters from './ActivityFilters'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,10 +28,13 @@ function ActivityDashboard() {
     return(
         <div >
             <Grid container>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                     <List component="nav" aria-label="main mailbox folders">
                         <ActivityList/>
                     </List>
+                </Grid>
+                <Grid item xs={6}>
+                    <ActivityFilters />
                 </Grid>
             </Grid>
         </div>

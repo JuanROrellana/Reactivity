@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useParams} from 'react-router-dom';
-import {Button, Card, CardActions, CardContent, Grid, Link, Paper, Typography} from "@material-ui/core";
+import {Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {useStore} from "../../../app/stores/store";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -50,8 +50,8 @@ function ActivityDetails(){
             <Grid container spacing={3}>
                 <Grid item xs={8}>
                     <Paper className={classes.paper}>
-                        <ActivityDetailedHeader/>
-                        <ActivityDetailedInfo/>
+                        <ActivityDetailedHeader activity={activity} />
+                        <ActivityDetailedInfo activity={activity} />
                         <ActivityDetailedChat/>
                     </Paper>
                 </Grid>
