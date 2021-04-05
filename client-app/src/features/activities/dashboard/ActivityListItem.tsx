@@ -2,6 +2,7 @@ import React, {SyntheticEvent} from "react";
 import {Button, Card, CardActions, CardContent, Link, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {Activity} from "../../../app/models/activity";
+import {format} from 'date-fns';
 import {useStore} from "../../../app/stores/store";
 import { red } from '@material-ui/core/colors';
 
@@ -53,7 +54,7 @@ function ActivityListItem({activity}: Props){
                     {activity.title}
                 </Typography>
                 <Typography color="textSecondary">
-                    {activity.date}
+                    {format(activity.date!, 'dd MMM yyyy h:mm aa')}
                 </Typography>
                 <Typography variant="body2" component="p">
                     {activity.description}
