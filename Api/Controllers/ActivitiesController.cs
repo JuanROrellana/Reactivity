@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Persistence;
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
