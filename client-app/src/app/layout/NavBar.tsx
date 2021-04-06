@@ -1,8 +1,13 @@
 import React from "react";
-import {AppBar, Button, Link, Menu, MenuItem, Toolbar} from "@material-ui/core";
+import { observer } from 'mobx-react-lite';
+import {AppBar, MenuItem, Toolbar} from "@material-ui/core";
+import { Link, NavLink } from 'react-router-dom';
+import { Button, Container, Menu, Image, Dropdown } from 'semantic-ui-react';
+import {useStore} from "../stores/store";
 
 function NavBar(){
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { userStore: { user, logout } } = useStore();
 
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -12,31 +17,30 @@ function NavBar(){
         setAnchorEl(null);
     };
     return(
-        <AppBar position="static">
-            <Toolbar>
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} color="inherit">
-                    Menu
-                </Button>
-                <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    <Link href="/" color="inherit" underline='none'>
-                        <MenuItem>Home</MenuItem>
-                    </Link>
-                    <Link href="/activities" color="inherit" underline='none'>
-                        <MenuItem>Activities</MenuItem>
-                    </Link>
-                    <Link href="/createActivities" color="inherit" underline='none'>
-                        <MenuItem>Create Activity</MenuItem>
-                    </Link>
-                </Menu>
-            </Toolbar>
-        </AppBar>
+        <Menu inverted fixed='top'>
+            <Container>
+                <Menu.Item as={NavLink} exact to='/' header>
+                    <img src='/assets/logo.png' alt='logo' style={{ marginRight: '10px' }} />
+                    Reactivities
+                </Menu.Item>
+                <Menu.Item as={NavLink} to='/activities' name='Activities' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' />
+                <Menu.Item>
+                    <Button as={NavLink} to='/createActivity' positive content='Create Activity' />
+                </Menu.Item>
+                <Menu.Item position='right'>
+                    <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />
+                    <Dropdown pointing='top left' text={user?.displayName}>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={Link} to={`/profile/${user?.userName}`}
+                                           text='My Profile' icon='user' />
+                            <Dropdown.Item onClick={logout} text='Logout' icon='power' />
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Item>
+            </Container>
+        </Menu>
     );
 }
 
-export default NavBar;
+export default observer(NavBar);
