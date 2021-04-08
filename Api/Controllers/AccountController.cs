@@ -20,9 +20,7 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly TokenService _tokenService;
-        private readonly IUserAccessor _userAccessor;
-        
+        private readonly TokenService _tokenService;        
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
         {
             _userManager = userManager;

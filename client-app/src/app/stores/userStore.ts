@@ -17,9 +17,9 @@ export default class UserStore{
         return !!this.user;
     }
 
-    login = async (creds: UserFormValues) => {
+    login = async (credentials: UserFormValues) => {
         try {
-            const user =  await Agent.Account.login(creds);
+            const user =  await Agent.Account.login(credentials);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             history.push('/activities');
@@ -46,9 +46,9 @@ export default class UserStore{
         }
     }
 
-    register = async (creds: UserFormValues) => {
+    register = async (credentials: UserFormValues) => {
         try {
-            const user = await Agent.Account.register(creds);
+            const user = await Agent.Account.register(credentials);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             history.push('/activities');
@@ -56,5 +56,9 @@ export default class UserStore{
         } catch (error) {
             throw error;
         }
+    }
+
+    setImage = (image: string) => {
+        if (this.user) this.user.image = image;
     }
 }
