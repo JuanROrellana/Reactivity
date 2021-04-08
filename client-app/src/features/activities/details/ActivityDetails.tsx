@@ -57,7 +57,7 @@ function ActivityDetails(){
                 </Grid>
                 <Grid item xs={4}>
                     <Paper className={classes.paper}>
-                        <ActivityDetailedSideBar/>
+                        <ActivityDetailedSideBar activity={activity}/>
                     </Paper>
                 </Grid>
             </Grid>

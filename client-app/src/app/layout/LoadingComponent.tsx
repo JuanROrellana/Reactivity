@@ -1,15 +1,15 @@
-import React from "react";
-import {CircularProgress} from "@material-ui/core";
+import React from 'react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
-interface Props{
-    inverted: boolean;
-    content: string;
+interface Props {
+    inverted?: boolean;
+    content?: string;
 }
 
-function LoadingComponent({inverted = true, content = 'Loading...'}: Props){
+export default function LoadingComponent({inverted = true, content = 'Loading...'}: Props) {
     return (
-        <CircularProgress />
-    );
+        <Dimmer active={true} inverted={inverted}>
+            <Loader content={content} />
+        </Dimmer>
+    )
 }
-
-export default LoadingComponent;
