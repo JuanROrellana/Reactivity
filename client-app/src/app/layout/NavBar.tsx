@@ -1,21 +1,11 @@
 import React from "react";
 import { observer } from 'mobx-react-lite';
-import {AppBar, MenuItem, Toolbar} from "@material-ui/core";
 import { Link, NavLink } from 'react-router-dom';
 import { Button, Container, Menu, Image, Dropdown } from 'semantic-ui-react';
 import {useStore} from "../stores/store";
 
 function NavBar(){
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const { userStore: { user, logout } } = useStore();
-
-    const handleClick = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     return(
         <Menu inverted fixed='top'>
             <Container>

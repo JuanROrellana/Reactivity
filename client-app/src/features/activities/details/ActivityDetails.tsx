@@ -35,13 +35,14 @@ const useStyles = makeStyles((theme) => ({
 function ActivityDetails(){
     const classes = useStyles();
     const {activityStore} = useStore();
-    const {selectedActivity: activity, loadActivity} = activityStore;
+    const {selectedActivity: activity, loadActivity, clearSelectedActivity} = activityStore;
     const {id} = useParams<{id: string}>();
 
     useEffect(() => {
         if(id) loadActivity(id);
+        return () => clearSelectedActivity();
         },
-        [id, loadActivity]);
+        [id, loadActivity, clearSelectedActivity]);
 
     if(!activity || !activity) return <LoadingComponent inverted={false} content={''}/>;
 
@@ -52,7 +53,7 @@ function ActivityDetails(){
                     <Paper className={classes.paper}>
                         <ActivityDetailedHeader activity={activity} />
                         <ActivityDetailedInfo activity={activity} />
-                        <ActivityDetailedChat/>
+                        <ActivityDetailedChat activityId={activity.id}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={4}>
@@ -61,32 +62,6 @@ function ActivityDetails(){
                     </Paper>
                 </Grid>
             </Grid>
-            {/*<Card className={classes.root}>*/}
-            {/*    <CardContent>*/}
-            {/*        <Typography variant="h5" component="h2">*/}
-            {/*            {activity.title}*/}
-            {/*        </Typography>*/}
-            {/*        <Typography className={classes.title} color="textSecondary" gutterBottom>*/}
-            {/*            {activity.category}*/}
-            {/*        </Typography>*/}
-            {/*        <Typography className={classes.pos} color="textSecondary">*/}
-            {/*            {activity.date}*/}
-            {/*        </Typography>*/}
-            {/*        <Typography variant="body2" component="p">*/}
-            {/*            {activity.description}*/}
-            {/*            <br/>*/}
-            {/*            {activity.venue} - {activity.city}*/}
-            {/*        </Typography>*/}
-            {/*    </CardContent>*/}
-            {/*    <CardActions>*/}
-            {/*        <Link href={`/manage/${activity.id}`} color="inherit" underline='none' >*/}
-            {/*            <Button size="medium">Edit</Button>*/}
-            {/*        </Link>*/}
-            {/*        <Link href={`/activities`} color="inherit" underline='none' >*/}
-            {/*            <Button size="medium">Cancel</Button>*/}
-            {/*        </Link>*/}
-            {/*    </CardActions>*/}
-            {/*</Card>*/}
         </div>
     )
 }

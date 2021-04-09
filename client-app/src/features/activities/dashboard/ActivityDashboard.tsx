@@ -1,18 +1,11 @@
 import React, {useEffect} from "react";
 import List from "@material-ui/core/List";
 import ActivityList from "./ActivityList";
-import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import ActivityFilters from './ActivityFilters'
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-}));
 
 function ActivityDashboard() {
     const {activityStore} = useStore();
