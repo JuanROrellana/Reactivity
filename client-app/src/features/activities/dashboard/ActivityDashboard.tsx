@@ -1,36 +1,56 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import List from "@material-ui/core/List";
 import ActivityList from "./ActivityList";
-import {Grid} from "@material-ui/core";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import ActivityFilters from './ActivityFilters'
+import {PagingParams} from "../../../app/models/Pagination";
+import InfiniteScroll from 'react-infinite-scroller';
+import {Grid, Loader} from "semantic-ui-react";
+import ActivityListItemPlaceholder from './ActivityListItemPlaceholder';
 
 function ActivityDashboard() {
     const {activityStore} = useStore();
-    const {loadActivities, activityRegistry} = activityStore;
+    const {loadActivities, activityRegistry, setPagingParams, pagination} = activityStore;
+    const[loadNext, setLoadNext] = useState(false);
 
+    function handleGetNext(){
+        setLoadNext(true);
+        setPagingParams(new PagingParams(pagination!.currentPage + 1));
+        loadActivities().then(() => setLoadNext(false));
+    }
 
     useEffect(() => {
         if (activityRegistry.size <= 1) loadActivities();
     }, [activityRegistry.size, loadActivities]);
 
-    if (activityStore.loadingInitial) return <LoadingComponent inverted={false} content={'None'}/>
-
     return(
-        <div >
-            <Grid container>
-                <Grid item xs={6}>
-                    <List component="nav" aria-label="main mailbox folders">
+        <Grid>
+            <Grid.Column width='10'>
+                {activityStore.loadingInitial && !loadNext ? (
+                    <>
+                        <ActivityListItemPlaceholder/>
+                        <ActivityListItemPlaceholder/>
+                    </>
+                ) : (
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={handleGetNext}
+                        hasMore={!loadNext && !!pagination && pagination.currentPage < pagination.totalPages}
+                        initialLoad={false}
+                    >
                         <ActivityList/>
-                    </List>
-                </Grid>
-                <Grid item xs={6}>
-                    <ActivityFilters />
-                </Grid>
-            </Grid>
-        </div>
+                    </InfiniteScroll>
+                )}
+            </Grid.Column>
+            <Grid.Column width='6'>
+                <ActivityFilters />
+            </Grid.Column>
+            <Grid.Column width={10}>
+                <Loader active={loadNext} />
+            </Grid.Column>
+        </Grid>
     );
 }
 

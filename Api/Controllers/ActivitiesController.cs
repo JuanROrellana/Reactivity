@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Persistence;
 using Application.Activities;
+using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 
@@ -17,9 +18,9 @@ namespace API.Controllers
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] ActivityParams param)
         {
-            return HandleResult(await Mediator.Send(new ListActivity.Query()));
+            return HandlePageResult(await Mediator.Send(new ListActivity.Query{PageParams = param}));
         }
 
         [HttpGet("{id}")]
